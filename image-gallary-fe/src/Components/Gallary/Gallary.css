@@ -21,6 +21,24 @@ hr {
   border: 2px solid #d3d3d3;
   border-radius: 4px;
   position: relative;
+  cursor: pointer;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  opacity: 0;
+  background: black;
+  color: black;
+  transition: 0.4s ease-out;
+}
+
+.featured-image:hover .overlay,
+.image:hover .overlay {
+  opacity: 0.3;
 }
 
 .featured-image input[type="checkbox"],
@@ -28,6 +46,8 @@ hr {
   position: absolute;
   left: 10px;
   top: 10px;
+  cursor: pointer;
+  z-index: 10;
 }
 
 .featured-image img,

@@ -16,50 +16,62 @@ const Gallary = () => {
           <div className="featured-image">
             <img src={img1} alt="featured-image" />
             <input type="checkbox" />
+            <div className="overlay"></div>
           </div >
           <div className="image">
             <img src={img2} alt="image" />
             <input type="checkbox" />
+            <div className="overlay"></div>
           </div>
           <div className="image">
             <img src={img3} alt="image" />
             <input type="checkbox" />
+            <div className="overlay"></div>
           </div>
           <div className="image">
             <img src={img4} alt="image" />
             <input type="checkbox" />
+            <div className="overlay"></div>
           </div>
           <div className="image">
             <img src={img4} alt="image" />
             <input type="checkbox" />
+            <div className="overlay"></div>
           </div>
           <div className="image">
             <img src={img4} alt="image" />
             <input type="checkbox" />
+            <div className="overlay"></div>
           </div>
           <div className="image">
             <img src={img4} alt="image" />
             <input type="checkbox" />
+            <div className="overlay"></div>
           </div>
           <div className="image">
             <img src={img4} alt="image" />
             <input type="checkbox" />
+            <div className="overlay"></div>
           </div>
           <div className="image">
             <img src={img4} alt="image" />
             <input type="checkbox" />
+            <div className="overlay"></div>
           </div>
           <div className="image">
             <img src={img4} alt="image" />
             <input type="checkbox" />
+            <div className="overlay"></div>
           </div>
           <div className="image">
             <img src={img4} alt="image" />
             <input type="checkbox" />
+            <div className="overlay"></div>
           </div>
           <div className="image">
             <img src={img4} alt="image" />
             <input type="checkbox" />
+            <div className="overlay"></div>
           </div>
 
         </div >
