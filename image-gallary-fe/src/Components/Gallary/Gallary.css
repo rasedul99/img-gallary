@@ -3,7 +3,18 @@
   background-color: #fff;
 }
 
-hr {
+.gallery-header h3 {
+  font-size: 30px;
+}
+
+.gallery-header .items-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.gallery-header hr {
   height: 1px;
   background-color: #d3d3d3;
   border: none;
