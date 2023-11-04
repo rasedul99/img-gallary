@@ -1,6 +1,6 @@
 import React from 'react'
-import "./GallaryGlimmer.css"
-const GallaryGlimmer = () => {
+import "./GalleryGlimmer.css"
+const GalleryGlimmer = () => {
   return (
     <div className="glimmer-panel">
       <div className="glimmer-line" />
@@ -10,4 +10,4 @@ const GallaryGlimmer = () => {
   )
 }
 
-export default GallaryGlimmer
+export default GalleryGlimmer

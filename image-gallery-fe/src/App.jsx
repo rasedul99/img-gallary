@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+
 import styles from "./App.module.css";
-import Gallary from './Components/Gallary/Gallary';
+import Gallery from './Components/Gallery/Gallery';
 const App = () => {
   return (
     <div className={styles.container}>
-      <Gallary />
+      <Gallery />
     </div>
   );
 };

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { faImage } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import GallaryGlimmer from '../GallaryGlimmer/GallaryGlimmer';
 import { getImages } from "../../Helper/data"
-import "./Gallary.css";
+import "./Gallery.css";
+import GalleryGlimmer from '../GalleryGlimmer/GalleryGlimmer';
 
-const Gallary = () => {
+const Gallery = () => {
 
   const [images, setImages] = useState(getImages)
   const [selectedItems, setSelectedItems] = useState([]);
@@ -32,6 +32,7 @@ const Gallary = () => {
     setImages(updatedImages);
     // Clear selected items after deleting
     setSelectedItems([]);
+
   }
   useEffect(() => {
     setTimeout(() => {
@@ -46,11 +47,11 @@ const Gallary = () => {
           {
             selectedItems.length >= 1 ? <div className="items-info">
               <div className="length">
-                <input type="checkbox" checked />
+                <input type="checkbox" defaultChecked />
                 <h3> {selectedItems.length} items selected</h3>
               </div>
               <div onClick={() => handleDeleteSelectedItems(selectedItems)} className='delete'>Delete File</div>
-            </div> : <h3>Gallary</h3>
+            </div> : <h3>Gallery</h3>
           }
           <hr />
         </div>
@@ -60,7 +61,7 @@ const Gallary = () => {
           (
             <div className="image" key={index}>
               <img src={image.path} alt={image.title} />
-              <input type="checkbox" value={image.id} onChange={handleCheckBoxChange} />
+              <input type="checkbox" defaultValue={image.id} defaultChecked={false} onChange={handleCheckBoxChange} />
               <div className="overlay"></div>
             </div >
           ))}
@@ -69,11 +70,11 @@ const Gallary = () => {
             <FontAwesomeIcon icon={faImage} />
             <label htmlFor="file">Add Image</label>
           </div>
-        </div > : <GallaryGlimmer />}
+        </div > : <GalleryGlimmer />}
 
       </section >
     </>
   )
 }
 
-export default Gallary
+export default Gallery

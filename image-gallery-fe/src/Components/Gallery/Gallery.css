@@ -96,7 +96,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  
+
 }
 
 .upload-btn input {
@@ -107,4 +107,19 @@
   font-weight: bold;
   cursor: inherit;
   font-size: 20px;
+}
+
+@media (max-width: 575px) {
+  .image-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .image input[type="checkbox"] {
+    left: 5px;
+    top: 5px;
+  }
+
+  .upload-btn label {
+    font-size: 14px;
+  }
 }
