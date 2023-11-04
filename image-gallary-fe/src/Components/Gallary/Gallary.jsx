@@ -1,13 +1,16 @@
-import React, { useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { useEffect, useState } from 'react'
 import { faImage } from '@fortawesome/free-solid-svg-icons'
-import "./Gallary.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import GallaryGlimmer from '../GallaryGlimmer/GallaryGlimmer';
 import { getImages } from "../../Helper/data"
+import "./Gallary.css";
 
 const Gallary = () => {
 
   const [images, setImages] = useState(getImages)
   const [selectedItems, setSelectedItems] = useState([]);
+  const [showImageGallery, setShowImageGallery] = useState(false);
+
   //  Handle checkboxes 
   const handleCheckBoxChange = (e) => {
     const { value, checked } = e.target;
@@ -30,6 +33,11 @@ const Gallary = () => {
     // Clear selected items after deleting
     setSelectedItems([]);
   }
+  useEffect(() => {
+    setTimeout(() => {
+      setShowImageGallery(true);
+    }, 1000); // 1 seconds delay
+  }, []);
   return (
     <>
       <section className="gallery-container">
@@ -46,8 +54,8 @@ const Gallary = () => {
           }
           <hr />
         </div>
-        {/* images */}
-        <div className="image-grid">
+        {/* If showImageGallery is true render images otherwise display the Glimmer component */}
+        {showImageGallery ? <div className="image-grid">
           {images.map((image, index) =>
           (
             <div className="image" key={index}>
@@ -61,8 +69,8 @@ const Gallary = () => {
             <FontAwesomeIcon icon={faImage} />
             <label htmlFor="file">Add Image</label>
           </div>
+        </div > : <GallaryGlimmer />}
 
-        </div >
       </section >
     </>
   )
