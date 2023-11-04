@@ -36,7 +36,13 @@ const Gallary = () => {
         {/* Header */}
         <div className="gallery-header">
           {
-            selectedItems.length >= 1 ? <div className="items-info"> <div className="length">{selectedItems.length} items selected</div>  <div onClick={() => handleDeleteSelectedItems(selectedItems)}>Delete File</div> </div> : <h3>Gallary</h3>
+            selectedItems.length >= 1 ? <div className="items-info">
+              <div className="length">
+                <input type="checkbox" checked />
+                <h3> {selectedItems.length} items selected</h3>
+              </div>
+              <div onClick={() => handleDeleteSelectedItems(selectedItems)} className='delete'>Delete File</div>
+            </div> : <h3>Gallary</h3>
           }
           <hr />
         </div>
