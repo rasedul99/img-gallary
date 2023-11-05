@@ -9,22 +9,29 @@ const Gallery = () => {
   const [images, setImages] = useState(getImages);
   const [selectedItems, setSelectedItems] = useState([]);
   const [showImageGallery, setShowImageGallery] = useState(false);
+  const [draggedItem, setDraggedItem] = useState(null);
 
-  // Handle checkboxes
+  // Handle checkbox change
   const handleCheckBoxChange = (e, imageId) => {
-    const { checked } = e.target;
-    setSelectedItems((prevSelectedItems) => {
-      if (checked) {
-        return [...prevSelectedItems, imageId];
-      } else {
-        return prevSelectedItems.filter((item) => item !== imageId);
-      }
-    });
+    if (e.target.type === 'checkbox') {
+
+      const { checked } = e.target;
+      setSelectedItems((prevSelectedItems) => {
+        if (checked) {
+          return [...prevSelectedItems, imageId];
+        } else {
+          return prevSelectedItems.filter((item) => item !== imageId);
+        }
+      });
+    } else {
+      // Disable drag and drop when an input element checkbox is clicked
+      setDraggingIndex(null);
+    }
   };
-  // handle select all images 
+  // handle select all images
   const handleSelectAll = () => {
     setSelectedItems(images.map((item) => item.id));
-  }
+  };
   // handle deselect all images
   const handleDeselectAll = () => {
     setSelectedItems([]);
@@ -37,6 +44,27 @@ const Gallery = () => {
     setSelectedItems([]);
   };
 
+  const handleDragStart = (e, image) => {
+    setDraggedItem(image);
+  };
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e, image) => {
+    e.preventDefault();
+    const updatedImages = [...images];
+    const draggedItemIndex = updatedImages.findIndex((item) => item.id === draggedItem.id);
+    const dropItemIndex = updatedImages.findIndex((item) => item.id === image.id);
+    [updatedImages[draggedItemIndex], updatedImages[dropItemIndex]] = [
+      updatedImages[dropItemIndex],
+      updatedImages[draggedItemIndex],
+    ];
+    setImages(updatedImages);
+    setDraggedItem(null);
+  };
+
   useEffect(() => {
     setTimeout(() => {
       setShowImageGallery(true);
@@ -45,18 +73,21 @@ const Gallery = () => {
 
   return (
     <section className="gallery-container">
-      {/* Header */}
       <div className="gallery-header">
         {selectedItems.length >= 1 ? (
           <div className="items-info">
             <div className="length">
-              <input type="checkbox" checked={selectedItems.length === images.length} onChange={() => {
-                if (selectedItems.length === images.length) {
-                  handleDeselectAll();
-                } else {
-                  handleSelectAll();
-                }
-              }} />
+              <input
+                type="checkbox"
+                checked={selectedItems.length === images.length}
+                onChange={() => {
+                  if (selectedItems.length === images.length) {
+                    handleDeselectAll();
+                  } else {
+                    handleSelectAll();
+                  }
+                }}
+              />
               <h3>
                 {selectedItems.length === images.length
                   ? 'All items are selected'
@@ -64,10 +95,9 @@ const Gallery = () => {
                     ? `${selectedItems.length} items are selected`
                     : `${selectedItems.length} item is selected`}
               </h3>
-
             </div>
             <div onClick={handleDeleteSelectedItems} className="delete">
-              Delete File
+              {selectedItems.length > 1 ? "Delete Files" : "Delete File"}
             </div>
           </div>
         ) : (
@@ -75,33 +105,37 @@ const Gallery = () => {
         )}
         <hr />
       </div>
-
       {/* If showImageGallery is true render images otherwise display the Glimmer component */}
-      {
-        showImageGallery ? (
-          <div className="image-grid">
-            {images.map((image, index) => (
-              <div className="image" key={index}>
-                <img src={image.path} alt={image.title} />
-                <input
-                  type="checkbox"
-                  checked={selectedItems.includes(image.id)}
-                  onChange={(e) => handleCheckBoxChange(e, image.id)}
-                />
-                <div className="overlay"></div>
-              </div>
-            ))}
-            <div className="upload-btn">
-              <input type="file" name="file" id="file" />
-              <FontAwesomeIcon icon={faImage} />
-              <label htmlFor="file">Add Image</label>
+      {showImageGallery ? (
+        <div className="image-grid">
+          {images.map((image, index) => (
+            <div
+              className="image"
+              key={index}
+              draggable
+              onDragStart={(e) => handleDragStart(e, image)}
+              onDragOver={(e) => handleDragOver(e, image)}
+              onDrop={(e) => handleDrop(e, image)}
+            >
+              <img src={image.path} alt={image.title} />
+              <input
+                type="checkbox"
+                checked={selectedItems.includes(image.id)}
+                onChange={(e) => handleCheckBoxChange(e, image.id)}
+              />
+              <div className="overlay"></div>
             </div>
+          ))}
+          <div className="upload-btn">
+            <input type="file" name="file" id="file" />
+            <FontAwesomeIcon icon={faImage} />
+            <label htmlFor="file">Add Image</label>
           </div>
-        ) : (
-          <GalleryGlimmer />
-        )
-      }
-    </section >
+        </div>
+      ) : (
+        <GalleryGlimmer />
+      )}
+    </section>
   );
 };
 
