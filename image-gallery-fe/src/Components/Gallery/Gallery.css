@@ -3,6 +3,7 @@
   background-color: #fff;
   border-radius: 10px;
   padding: 10px 20px;
+  box-sizing: border-box;
 }
 
 .gallery-header h3 {
@@ -120,17 +121,30 @@
   gap: 10px;
 }
 
+@media (max-width: 768px) {
+  .image input[type="checkbox"] {
+    left: 5px;
+    top: 5px;
+  }
+}
+
 @media (max-width: 575px) {
+  .gallery-header h3 {
+    font-size: 20px;
+  }
+
   .image-grid {
     grid-template-columns: repeat(4, 1fr);
   }
 
   .image input[type="checkbox"] {
-    left: 5px;
-    top: 5px;
+    left: 1px;
+    top: 1px;
+    height: 12px;
+    width: 12px;
   }
 
   .upload-btn label {
-    font-size: 14px;
+    font-size: 13px;
   }
 }
