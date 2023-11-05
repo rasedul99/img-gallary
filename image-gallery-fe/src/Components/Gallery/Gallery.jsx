@@ -13,20 +13,14 @@ const Gallery = () => {
 
   // Handle checkbox change
   const handleCheckBoxChange = (e, imageId) => {
-    if (e.target.type === 'checkbox') {
-
-      const { checked } = e.target;
-      setSelectedItems((prevSelectedItems) => {
-        if (checked) {
-          return [...prevSelectedItems, imageId];
-        } else {
-          return prevSelectedItems.filter((item) => item !== imageId);
-        }
-      });
-    } else {
-      // Disable drag and drop when an input element checkbox is clicked
-      setDraggingIndex(null);
-    }
+    const { checked } = e.target;
+    setSelectedItems((prevSelectedItems) => {
+      if (checked) {
+        return [...prevSelectedItems, imageId];
+      } else {
+        return prevSelectedItems.filter((item) => item !== imageId);
+      }
+    });
   };
   // handle select all images
   const handleSelectAll = () => {
@@ -44,14 +38,17 @@ const Gallery = () => {
     setSelectedItems([]);
   };
 
+  // Handle drag start events
   const handleDragStart = (e, image) => {
     setDraggedItem(image);
   };
 
+  // handle drag over events
   const handleDragOver = (e) => {
     e.preventDefault();
   };
 
+  // handle drop events
   const handleDrop = (e, image) => {
     e.preventDefault();
     const updatedImages = [...images];
@@ -65,6 +62,21 @@ const Gallery = () => {
     setDraggedItem(null);
   };
 
+  // handle Uploaded Images
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    const newImage = {
+      id: images.length + 1,
+      path: URL.createObjectURL(file),
+      title: file.name
+    };
+    setImages([...images, newImage]);
+  };
+  // Rerender when new images are added
+  useEffect(() => {
+  }, [images]);
+
+  // Display Glimmer before displaying the image gallery
   useEffect(() => {
     setTimeout(() => {
       setShowImageGallery(true);
@@ -127,7 +139,7 @@ const Gallery = () => {
             </div>
           ))}
           <div className="upload-btn">
-            <input type="file" name="file" id="file" />
+            <input type="file" name="file" id="file" onChange={handleImageUpload} />
             <FontAwesomeIcon icon={faImage} />
             <label htmlFor="file">Add Image</label>
           </div>
