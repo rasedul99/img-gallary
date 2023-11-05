@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { faImage } from '@fortawesome/free-solid-svg-icons';
+import { faImage, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getImages } from '../../Helper/data';
 import './Gallery.css';
@@ -109,6 +109,7 @@ const Gallery = () => {
               </h3>
             </div>
             <div onClick={handleDeleteSelectedItems} className="delete">
+              <FontAwesomeIcon icon={faTrash} />
               {selectedItems.length > 1 ? "Delete Files" : "Delete File"}
             </div>
           </div>
@@ -139,9 +140,11 @@ const Gallery = () => {
             </div>
           ))}
           <div className="upload-btn">
-            <input type="file" name="file" id="file" onChange={handleImageUpload} />
-            <FontAwesomeIcon icon={faImage} />
-            <label htmlFor="file">Add Image</label>
+            <label htmlFor="file" className='upload-label'>
+              <input type="file" name="file" id="file" onChange={handleImageUpload} />
+              <FontAwesomeIcon icon={faImage} />
+              <span> Add Image </span>
+            </label>
           </div>
         </div>
       ) : (
